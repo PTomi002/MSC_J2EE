@@ -31,6 +31,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/org.primefaces/primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>6.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -73,4 +80,13 @@
 		</plugins>
 	</build>
 
+	<repositories>
+		<!-- Maven Central Repo does not contains primefaces artifacts -->
+		<repository>
+			<url>http://repository.primefaces.org/</url>
+			<id>PrimeFaces-maven-lib</id>
+			<layout>default</layout>
+			<name>Repository for library PrimeFaces-maven-lib</name>
+		</repository>
+	</repositories>
 </project>

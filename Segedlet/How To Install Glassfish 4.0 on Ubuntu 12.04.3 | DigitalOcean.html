@@ -1,0 +1,1573 @@
+<!DOCTYPE html>
+<html class="wf-proximanova-n6-active wf-proximanova-n4-active wf-proximanova-i4-active wf-proximanova-n3-active wf-active" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>How To Install Glassfish 4.0 on Ubuntu 12.04.3 | DigitalOcean</title>
+
+<meta name="description" content="There are many tutorials available to help you install OpenJDK and JBoss. This is one on the latest concerning Oracle Java and Glassfish. Hopefully this will make deploying easier for Java EE developers. Here's how to install Glassfish 4.0 on Ubuntu 1">
+<meta name="keywords" content="Java">
+
+<meta name="og:title" content="How To Install Glassfish 4.0 on Ubuntu 12.04.3 | DigitalOcean">
+<meta name="og:description" content="There are many tutorials available to help you install OpenJDK and JBoss. This is one on the latest concerning Oracle Java and Glassfish. Hopefully this will make deploying easier for Java EE developers. Here's how to install Glassfish 4.0 on Ubuntu 1">
+<meta name="og:site_name" content="DigitalOcean">
+<meta name="og:type" content="article">
+
+<meta name="twitter:site" content="DigitalOcean">
+<meta name="twitter:title" content="How To Install Glassfish 4.0 on Ubuntu 12.04.3 | DigitalOcean">
+<meta name="twitter:description" content="There are many tutorials available to help you install OpenJDK and JBoss. This is one on the latest concerning Oracle Java and Glassfish. Hopefully this will make deploying easier for Java EE developers. Here's how to install Glassfish 4.0 on Ubuntu 1">
+<meta name="twitter:creator" content="DigitalOcean">
+<meta name="twitter:card" content="photo">
+<meta name="twitter:url" content="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3">
+
+<meta property="og:image" content="https://www.digitalocean.com/assets/community/default_community_sharing-65c1cc547375d6e37cc45195b3686769.png">
+<meta name="twitter:image" content="https://www.digitalocean.com/assets/community/default_community_sharing-65c1cc547375d6e37cc45195b3686769.png">
+
+  <link rel="canonical" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3">
+
+
+    <link rel="stylesheet" media="all" href="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/application-7c113d2047049adff1d919a70cb9521a.css">
+
+    
+    <meta name="csrf-param" content="authenticity_token">
+<meta name="csrf-token" content="Vt35Nh4dKytvvs5+8jM85CnUvJfdH6Sml3e5TrtPq4AZwHILWKeLfThaJTPUXLVbRzi4sy3cHOdwxP0w2Xar5w==">
+      <script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/linkid.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/conversion_async.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/analytics.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/munchkin.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/track.js" id="cio-tracker" data-site-id="e7cc779295927747a7c2"></script><script async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/gtm.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/analytics_002.js"></script><script src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/izu1uqu.js"></script>
+      <style type="text/css">.tk-proxima-nova{font-family:"proxima-nova",sans-serif;}</style><style type="text/css">@font-face{font-family:tk-proxima-nova-n6;src:url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/l?subset_id=2&fvd=n6) format("woff2"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/d?subset_id=2&fvd=n6) format("woff"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/a?subset_id=2&fvd=n6) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:tk-proxima-nova-n4;src:url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/l?subset_id=2&fvd=n4) format("woff2"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/d?subset_id=2&fvd=n4) format("woff"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/a?subset_id=2&fvd=n4) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:tk-proxima-nova-i4;src:url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/l?subset_id=2&fvd=i4) format("woff2"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/d?subset_id=2&fvd=i4) format("woff"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/a?subset_id=2&fvd=i4) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:tk-proxima-nova-n3;src:url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/l?subset_id=2&fvd=n3) format("woff2"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/d?subset_id=2&fvd=n3) format("woff"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/a?subset_id=2&fvd=n3) format("opentype");font-weight:300;font-style:normal;}</style><script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <script src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/bugsnag-2.js" data-apikey="9ffc01bc3e1fa7891bfd20909d1bfb0e">
+    </script>
+    <!--<script src="//cdn.optimizely.com/js/701281621.js"></script>-->
+    <script type="text/javascript">
+      if(window.analytics=window.analytics||[],window.analytics.included)window.console&&console.error&&console.error("analytics.js included twice");else{window.analytics.included=!0,window.analytics.methods=["identify","group","track","page","pageview","alias","ready","on","once","off","trackLink","trackForm","trackClick","trackSubmit"],window.analytics.factory=function(a){return function(){var n=Array.prototype.slice.call(arguments);return n.unshift(a),window.analytics.push(n),window.analytics}};for(var i=0;i<window.analytics.methods.length;i++){var key=window.analytics.methods[i];window.analytics[key]=window.analytics.factory(key)}window.analytics.load=function(a){var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+a+"/analytics.min.js";var t=document.getElementsByTagName("script")[0];t.parentNode.insertBefore(n,t)},window.analytics.SNIPPET_VERSION="2.0.9",
+      window.analytics.load("puo3uv968t")}
+      window.analytics.page();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.digitalocean.com/community/tutorials/feed">
+    <script src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/polyfill.js"></script>
+    <script>
+      window.comApp = {
+        prefix: '/community',
+        svgIconPath: 'https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg',
+        railsEnv: 'production',
+        rootUrl: 'https://www.digitalocean.com/community'
+      };
+    </script>
+    <script src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/application-2680601249a04bf25d7db5c3bef690ba.js"></script>
+    <link rel="canonical" href="https://www.digitalocean.com/community/">
+  <style>.fluidvids {width: 100%; max-width: 100%; position: relative;}.fluidvids-item {position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;}</style><script id="twitter-wjs" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/widgets.js"></script><style type="text/css">@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/l?subset_id=2&fvd=n6) format("woff2"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/d?subset_id=2&fvd=n6) format("woff"),url(https://use.typekit.net/af/921f74/00000000000000003b9ad1bb/27/a?subset_id=2&fvd=n6) format("opentype");font-weight:600;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/l?subset_id=2&fvd=n4) format("woff2"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/d?subset_id=2&fvd=n4) format("woff"),url(https://use.typekit.net/af/edab9a/00000000000000003b9ad1b9/27/a?subset_id=2&fvd=n4) format("opentype");font-weight:400;font-style:normal;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/l?subset_id=2&fvd=i4) format("woff2"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/d?subset_id=2&fvd=i4) format("woff"),url(https://use.typekit.net/af/1b9fb4/00000000000000003b9ad1ba/27/a?subset_id=2&fvd=i4) format("opentype");font-weight:400;font-style:italic;}@font-face{font-family:proxima-nova;src:url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/l?subset_id=2&fvd=n3) format("woff2"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/d?subset_id=2&fvd=n3) format("woff"),url(https://use.typekit.net/af/015ec8/00000000000000003b9ad1b5/27/a?subset_id=2&fvd=n3) format("opentype");font-weight:300;font-style:normal;}</style><script id="facebook-jssdk" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/all.js"></script><script type="text/javascript" async="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/munchkin_002.js"></script><style type="text/css">.fb_hidden{position:absolute;top:-10000px;z-index:10001}.fb_reposition{overflow:hidden;position:relative}.fb_invisible{display:none}.fb_reset{background:none;border:0;border-spacing:0;color:#000;cursor:auto;direction:ltr;font-family:"lucida grande", tahoma, verdana, arial, sans-serif;font-size:11px;font-style:normal;font-variant:normal;font-weight:normal;letter-spacing:normal;line-height:1;margin:0;overflow:visible;padding:0;text-align:left;text-decoration:none;text-indent:0;text-shadow:none;text-transform:none;visibility:visible;white-space:normal;word-spacing:normal}.fb_reset>div{overflow:hidden}.fb_link img{border:none}@keyframes fb_transform{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}.fb_animate{animation:fb_transform .3s forwards}
+.fb_dialog{background:rgba(82, 82, 82, .7);position:absolute;top:-10000px;z-index:10001}.fb_reset .fb_dialog_legacy{overflow:visible}.fb_dialog_advanced{padding:10px;-moz-border-radius:8px;-webkit-border-radius:8px;border-radius:8px}.fb_dialog_content{background:#fff;color:#333}.fb_dialog_close_icon{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 0 transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif);cursor:pointer;display:block;height:15px;position:absolute;right:18px;top:17px;width:15px}.fb_dialog_mobile .fb_dialog_close_icon{top:5px;left:5px;right:auto}.fb_dialog_padding{background-color:transparent;position:absolute;width:1px;z-index:-1}.fb_dialog_close_icon:hover{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -15px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_close_icon:active{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yq/r/IE9JII6Z1Ys.png) no-repeat scroll 0 -30px transparent;_background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yL/r/s816eWC-2sl.gif)}.fb_dialog_loader{background-color:#f6f7f9;border:1px solid #606060;font-size:24px;padding:20px}.fb_dialog_top_left,.fb_dialog_top_right,.fb_dialog_bottom_left,.fb_dialog_bottom_right{height:10px;width:10px;overflow:hidden;position:absolute}.fb_dialog_top_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 0;left:-10px;top:-10px}.fb_dialog_top_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -10px;right:-10px;top:-10px}.fb_dialog_bottom_left{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -20px;bottom:-10px;left:-10px}.fb_dialog_bottom_right{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ye/r/8YeTNIlTZjm.png) no-repeat 0 -30px;right:-10px;bottom:-10px}.fb_dialog_vert_left,.fb_dialog_vert_right,.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{position:absolute;background:#525252;filter:alpha(opacity=70);opacity:.7}.fb_dialog_vert_left,.fb_dialog_vert_right{width:10px;height:100%}.fb_dialog_vert_left{margin-left:-10px}.fb_dialog_vert_right{right:0;margin-right:-10px}.fb_dialog_horiz_top,.fb_dialog_horiz_bottom{width:100%;height:10px}.fb_dialog_horiz_top{margin-top:-10px}.fb_dialog_horiz_bottom{bottom:0;margin-bottom:-10px}.fb_dialog_iframe{line-height:0}.fb_dialog_content .dialog_title{background:#6d84b4;border:1px solid #365899;color:#fff;font-size:14px;font-weight:bold;margin:0}.fb_dialog_content .dialog_title>span{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/yd/r/Cou7n-nqK52.gif) no-repeat 5px 50%;float:left;padding:5px 0 7px 26px}body.fb_hidden{-webkit-transform:none;height:100%;margin:0;overflow:visible;position:absolute;top:-10000px;left:0;width:100%}.fb_dialog.fb_dialog_mobile.loading{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/ya/r/3rhSv5V8j3o.gif) white no-repeat 50% 50%;min-height:100%;min-width:100%;overflow:hidden;position:absolute;top:0;z-index:10001}.fb_dialog.fb_dialog_mobile.loading.centered{width:auto;height:auto;min-height:initial;min-width:initial;background:none}.fb_dialog.fb_dialog_mobile.loading.centered #fb_dialog_loader_spinner{width:100%}.fb_dialog.fb_dialog_mobile.loading.centered .fb_dialog_content{background:none}.loading.centered #fb_dialog_loader_close{color:#fff;display:block;padding-top:20px;clear:both;font-size:18px}#fb-root #fb_dialog_ipad_overlay{background:rgba(0, 0, 0, .45);position:absolute;bottom:0;left:0;right:0;top:0;width:100%;min-height:100%;z-index:10000}#fb-root #fb_dialog_ipad_overlay.hidden{display:none}.fb_dialog.fb_dialog_mobile.loading iframe{visibility:hidden}.fb_dialog_content .dialog_header{-webkit-box-shadow:white 0 1px 1px -1px inset;background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#738ABA), to(#2C4987));border-bottom:1px solid;border-color:#1d4088;color:#fff;font:14px Helvetica, sans-serif;font-weight:bold;text-overflow:ellipsis;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0;vertical-align:middle;white-space:nowrap}.fb_dialog_content .dialog_header table{-webkit-font-smoothing:subpixel-antialiased;height:43px;width:100%}.fb_dialog_content .dialog_header td.header_left{font-size:12px;padding-left:5px;vertical-align:middle;width:60px}.fb_dialog_content .dialog_header td.header_right{font-size:12px;padding-right:5px;vertical-align:middle;width:60px}.fb_dialog_content .touchable_button{background:-webkit-gradient(linear, 0% 0%, 0% 100%, from(#4966A6), color-stop(.5, #355492), to(#2A4887));border:1px solid #29487d;-webkit-background-clip:padding-box;-webkit-border-radius:3px;-webkit-box-shadow:rgba(0, 0, 0, .117188) 0 1px 1px inset, rgba(255, 255, 255, .167969) 0 1px 0;display:inline-block;margin-top:3px;max-width:85px;line-height:18px;padding:4px 12px;position:relative}.fb_dialog_content .dialog_header .touchable_button input{border:none;background:none;color:#fff;font:12px Helvetica, sans-serif;font-weight:bold;margin:2px -12px;padding:2px 6px 3px 6px;text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog_content .dialog_header .header_center{color:#fff;font-size:16px;font-weight:bold;line-height:18px;text-align:center;vertical-align:middle}.fb_dialog_content .dialog_content{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat 50% 50%;border:1px solid #555;border-bottom:0;border-top:0;height:150px}.fb_dialog_content .dialog_footer{background:#f6f7f9;border:1px solid #555;border-top-color:#ccc;height:40px}#fb_dialog_loader_close{float:left}.fb_dialog.fb_dialog_mobile .fb_dialog_close_button{text-shadow:rgba(0, 30, 84, .296875) 0 -1px 0}.fb_dialog.fb_dialog_mobile .fb_dialog_close_icon{visibility:hidden}#fb_dialog_loader_spinner{animation:rotateSpinner 1.2s linear infinite;background-color:transparent;background-image:url(https://static.xx.fbcdn.net/rsrc.php/v3/yD/r/t-wz8gw1xG1.png);background-repeat:no-repeat;background-position:50% 50%;height:24px;width:24px}@keyframes rotateSpinner{0%{transform:rotate(0deg)}100%{transform:rotate(360deg)}}
+.fb_iframe_widget{display:inline-block;position:relative}.fb_iframe_widget span{display:inline-block;position:relative;text-align:justify}.fb_iframe_widget iframe{position:absolute}.fb_iframe_widget_fluid_desktop,.fb_iframe_widget_fluid_desktop span,.fb_iframe_widget_fluid_desktop iframe{max-width:100%}.fb_iframe_widget_fluid_desktop iframe{min-width:220px;position:relative}.fb_iframe_widget_lift{z-index:1}.fb_hide_iframes iframe{position:relative;left:-10000px}.fb_iframe_widget_loader{position:relative;display:inline-block}.fb_iframe_widget_fluid{display:inline}.fb_iframe_widget_fluid span{width:100%}.fb_iframe_widget_loader iframe{min-height:32px;z-index:2;zoom:1}.fb_iframe_widget_loader .FB_Loader{background:url(https://static.xx.fbcdn.net/rsrc.php/v3/y9/r/jKEcVPZFk-2.gif) no-repeat;height:32px;width:32px;margin-left:-16px;position:absolute;left:50%;z-index:4}</style></head>
+  <body class="feature-filter-bar feature-upvotes tutorials-controller tutorial-single" data-env="production" data-prefix="/community" data-user-id="" data-facebook-app-id="694818843983011">
+    <script>
+//<![CDATA[
+
+//]]>
+</script>
+<!-- Google Tag Manager -->
+<noscript><iframe src="//www.googletagmanager.com/ns.html?id=GTM-KHWBBT"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-KHWBBT');</script>
+<!-- End Google Tag Manager -->
+
+    
+
+    <div class="outside_viewport">
+        <div id="contents-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Contents</h1>
+          <button class="close-button icon icon-close-light" data-dismiss="modal" aria-label="close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="table-of-contents-modal tocify"><ul id="tocify-header0" class="tocify-header"><li class="tocify-item" data-unique="step-one-install-oracle-java-7"><a>Step One: Install Oracle Java 7</a></li></ul><ul id="tocify-header1" class="tocify-header"><li class="tocify-item" data-unique="step-two-install-glassfish-40"><a>Step Two: Install Glassfish 4.0</a></li></ul><ul id="tocify-header2" class="tocify-header"><li class="tocify-item tocify-focus" data-unique="demo-service-deploy-hellowar-on-glassfish"><a>Demo service: deploy hello.war on Glassfish</a></li></ul></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="top ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <div class="table-of-contents sticky" style="top: 72px;">
+    <div data-js="tableOfContentsDesktop" class="tocify"><ul id="tocify-header0" class="tocify-header"><li class="tocify-item" data-unique="step-one-install-oracle-java-7"><a>Step One: Install Oracle Java 7</a></li></ul><ul id="tocify-header1" class="tocify-header"><li class="tocify-item" data-unique="step-two-install-glassfish-40"><a>Step Two: Install Glassfish 4.0</a></li></ul><ul id="tocify-header2" class="tocify-header"><li class="tocify-item tocify-focus" data-unique="demo-service-deploy-hellowar-on-glassfish"><a>Demo service: deploy hello.war on Glassfish</a></li></ul></div>
+  </div>
+  
+  <div id="share-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Share</h1>
+        <button type="button" class="close-button icon icon-close-light" aria-label="close" data-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="social-sharing social-sharing-container">
+          <ul class="bottom ">
+            <li class="shareBtn" id="sbTwitter">
+              <a href="http://twitter.com/share?text=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=twshare" class="share-icon share-popup" title="Share on Twitter">
+                <span class="sIcon icon-bird"></span>
+              </a>
+              <a href="http://twitter.com/share?text=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=twshare" class="share-link share-popup" title="Share on Twitter">
+                Twitter
+              </a>
+            </li>
+            <li class="shareBtn" id="sbFacebook">
+              <a class="share-icon facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                <span class="sIcon icon-facebook-B"></span>
+              </a>
+
+              <a class="share-link facebook-share" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=fbshare" onclick="" title="Share on Facebook">
+                Facebook
+              </a>
+            </li>
+            <li class="shareBtn" id="sbGoogle">
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=gpshare" class="share-icon share-popup" title="Share on Google+">
+                <span class="sIcon icon-google-plus-B"></span>
+              </a>
+              <a href="https://plus.google.com/share?url=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=gpshare" class="share-link share-popup" title="Share on Google+">
+                Google+
+              </a>
+            </li>
+            <li class="shareBtn" id="sbYC">
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=hnshare" class="share-icon share-popup" target="_blank" title="Submit to Hacker News">
+                <span class="sIcon icon-hacker-news"></span>
+              </a>
+              <a href="https://news.ycombinator.com/submitlink?t=How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3&amp;u=https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3&amp;utm_medium=community&amp;utm_source=hnshare" class="share-link share-popup" target="_blank" title="Submit to Hacker News">
+                Hacker News
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+      
+    </div>
+
+      <div class="mobile-nav">
+  
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+
+  <button type="button" aria-label="close" class="close-panel icon-close"></button>
+
+  <form class="mobile-search" role="search" action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" value="✓" type="hidden">
+    <span class="icon icon-search-thin"></span>
+    <input name="q" id="q" title="Search" placeholder="Search" type="text">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form>
+  
+<nav>
+
+  <ul>
+    <li><a class="active" href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+  
+</div>
+
+      
+      <header>
+  <div class="flash-container"></div>
+
+  <div class="main-menu-container">
+    <div class="wrapper">
+      <div class="logo">
+        <a class="logo-icon" href="https://www.digitalocean.com/">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 190 32" class="do-icon">
+<title>DigitalOcean</title>
+<path class="path1" d="M16.016 32v-6.204c6.584 0 11.648-6.52 9.147-13.42-0.95-2.564-2.975-4.59-5.539-5.539-6.9-2.501-13.42 2.564-13.42 9.147 0 0 0 0 0 0l-6.204 0.032c0-10.477 10.129-18.643 21.112-15.225 4.811 1.488 8.609 5.317 10.097 10.097 3.418 10.983-4.716 21.112-15.193 21.112z"></path>
+<path class="path2" d="M16.016 25.828h-6.172v-6.172h6.172z"></path>
+<path class="path3" d="M9.844 30.576h-4.748v-4.748h4.748v4.748z"></path>
+<path class="path4" d="M5.096 25.828h-3.988v-3.988h3.988z"></path>
+<path class="path5" d="M56.973 9.242c-1.836-1.266-4.115-1.931-6.773-1.931h-5.792v18.39h5.792c2.659 0 4.938-0.665 6.773-2.026 1.013-0.696 1.804-1.709 2.342-2.944s0.823-2.69 0.823-4.336c0-1.614-0.285-3.070-0.823-4.305-0.538-1.203-1.329-2.152-2.342-2.849zM47.794 10.445h1.836c2.026 0 3.703 0.411 4.969 1.171 1.393 0.855 2.121 2.469 2.121 4.779 0 2.406-0.728 4.083-2.121 5.001v0c-1.203 0.791-2.88 1.203-4.938 1.203h-1.867v-12.154z"></path>
+<path class="path6" d="M64.19 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path7" d="M62.512 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path8" d="M77.642 13.864c-0.981-0.886-2.089-1.393-3.26-1.393-1.804 0-3.292 0.633-4.463 1.836s-1.741 2.785-1.741 4.653c0 1.836 0.57 3.387 1.741 4.653 1.171 1.203 2.659 1.836 4.463 1.836 1.266 0 2.342-0.348 3.228-1.044v0.285c0 1.076-0.285 1.899-0.855 2.5-0.57 0.57-1.361 0.855-2.342 0.855-1.519 0-2.437-0.601-3.608-2.152l-2.216 2.121 0.063 0.095c0.475 0.665 1.203 1.329 2.184 1.962s2.184 0.95 3.64 0.95c1.931 0 3.513-0.601 4.653-1.773 1.171-1.171 1.741-2.754 1.741-4.716v-11.743h-3.197v1.076zM76.787 21.523c-0.57 0.633-1.298 0.95-2.247 0.95s-1.678-0.317-2.216-0.95c-0.57-0.633-0.855-1.488-0.855-2.532s0.285-1.931 0.855-2.564c0.57-0.633 1.298-0.981 2.216-0.981 0.95 0 1.678 0.317 2.247 0.981 0.57 0.633 0.855 1.519 0.855 2.564s-0.317 1.899-0.855 2.532z"></path>
+<path class="path9" d="M83.624 12.787h3.26v12.977h-3.26v-12.977z"></path>
+<path class="path10" d="M85.302 7.122c-0.57 0-1.044 0.19-1.424 0.57s-0.601 0.855-0.601 1.393c0 0.57 0.19 1.044 0.601 1.424 0.38 0.38 0.855 0.601 1.424 0.601s1.044-0.19 1.424-0.601c0.38-0.38 0.601-0.886 0.601-1.424 0-0.57-0.19-1.044-0.601-1.393-0.38-0.38-0.886-0.57-1.424-0.57z"></path>
+<path class="path11" d="M94.038 9.274h-3.197v3.513h-1.867v2.975h1.867v5.381c0 1.678 0.348 2.88 1.013 3.577s1.836 1.044 3.513 1.044c0.538 0 1.076-0.032 1.583-0.063h0.158v-2.975l-1.108 0.063c-0.791 0-1.298-0.127-1.551-0.411s-0.38-0.855-0.38-1.709v-4.906h3.039v-2.975h-3.039v-3.513z"></path>
+<path class="path12" d="M112.364 7.343h3.26v18.39h-3.26v-18.39z"></path>
+<path class="path13" d="M148.574 21.112c-0.57 0.665-1.171 1.234-1.646 1.519v0c-0.443 0.285-1.013 0.443-1.678 0.443-0.95 0-1.741-0.348-2.374-1.076s-0.95-1.646-0.95-2.754 0.317-2.026 0.918-2.722c0.633-0.728 1.393-1.076 2.342-1.076 1.044 0 2.152 0.665 3.102 1.773l2.152-2.057c-1.393-1.836-3.197-2.69-5.349-2.69-1.804 0-3.355 0.665-4.621 1.931s-1.899 2.912-1.899 4.843 0.633 3.545 1.899 4.843c1.266 1.298 2.817 1.931 4.621 1.931 2.374 0 4.273-1.013 5.539-2.88l-2.057-2.026z"></path>
+<path class="path14" d="M161.962 14.591c-0.475-0.633-1.108-1.171-1.867-1.551-0.791-0.38-1.678-0.57-2.69-0.57-1.836 0-3.323 0.665-4.431 1.994-1.076 1.329-1.646 2.944-1.646 4.874 0 1.962 0.601 3.577 1.804 4.843 1.171 1.234 2.785 1.867 4.716 1.867 2.184 0 4.020-0.886 5.349-2.659l0.063-0.095-2.121-2.057c-0.19 0.253-0.475 0.506-0.728 0.76-0.317 0.317-0.633 0.538-0.95 0.696-0.475 0.253-1.044 0.348-1.646 0.348-0.918 0-1.646-0.253-2.216-0.791-0.538-0.475-0.855-1.139-0.918-1.962h8.641l0.032-1.203c0-0.855-0.127-1.646-0.348-2.406-0.222-0.728-0.57-1.456-1.044-2.089zM154.841 17.63c0.158-0.633 0.443-1.139 0.855-1.551 0.443-0.443 1.013-0.665 1.709-0.665 0.791 0 1.393 0.222 1.804 0.665 0.38 0.411 0.601 0.918 0.665 1.519h-5.033z"></path>
+<path class="path15" d="M174.497 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.063-1.583-0.443-2.817-1.456-3.672zM168.704 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.19-0.76 0.538-1.013z"></path>
+<path class="path16" d="M188.55 13.99c-0.918-1.013-2.184-1.519-3.798-1.519-1.298 0-2.342 0.38-3.134 1.108v-0.791h-3.197v12.977h3.26v-7.185c0-0.981 0.222-1.773 0.696-2.311 0.475-0.57 1.076-0.823 1.931-0.823 0.728 0 1.298 0.253 1.709 0.728 0.411 0.506 0.633 1.171 0.633 2.026v7.501h3.26v-7.47c0-1.804-0.443-3.229-1.361-4.241z"></path>
+<path class="path17" d="M108.281 13.737v0c-0.981-0.855-2.342-1.266-4.051-1.266-1.076 0-2.089 0.253-3.007 0.696-0.855 0.443-1.678 1.139-2.216 2.089l0.032 0.032 2.089 1.994c0.855-1.361 1.804-1.836 3.070-1.836 0.696 0 1.234 0.19 1.678 0.538s0.633 0.823 0.633 1.393v0.633c-0.823-0.253-1.614-0.38-2.406-0.38-1.614 0-2.944 0.38-3.925 1.139s-1.488 1.867-1.488 3.229c0 1.203 0.411 2.216 1.266 2.944 0.855 0.696 1.899 1.076 3.134 1.076s2.406-0.506 3.45-1.361v1.076h3.197v-8.324c0.032-1.583-0.475-2.817-1.456-3.672zM102.489 20.795c0.38-0.253 0.886-0.38 1.551-0.38 0.791 0 1.614 0.158 2.469 0.475v1.266c-0.696 0.665-1.646 0.981-2.817 0.981-0.57 0-1.013-0.127-1.298-0.38s-0.443-0.538-0.443-0.95c0-0.443 0.158-0.76 0.538-1.013z"></path>
+<path class="path18" d="M127.462 26.018c-5.223 0-9.496-4.241-9.496-9.496s4.241-9.496 9.496-9.496 9.496 4.241 9.496 9.496-4.273 9.496-9.496 9.496zM127.462 10.382c-3.387 0-6.14 2.754-6.14 6.14s2.754 6.14 6.14 6.14 6.14-2.754 6.14-6.14-2.754-6.14-6.14-6.14z"></path>
+</svg>
+
+          <span class="sr-only">DigitalOcean</span>
+</a>
+        <span class="logo-separator"></span>
+
+        <a class="home-link" href="https://www.digitalocean.com/community">
+          <span class="logo-community-text">Community</span>
+</a>      </div>
+
+      <a class="mobile-nav-toggle icon-menu-thin" data-role="left">
+        <span>Menu</span>
+      </a>
+
+      
+<nav>
+
+  <ul>
+    <li><a class="active" href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.meetup.com/pro/digitalocean/?utm_source=do_community" target="_blank">Meetups</a></li>
+    <li class="mobile-nav-only"><a href="https://www.digitalocean.com/">Main Site</a></li>
+  </ul>
+</nav>
+
+
+      
+<div class="account-buttons">
+    <div id="entrance">
+      <a id="sign-up" class="button" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+      <a id="log-in" class="button" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+    </div>
+</div>
+      <div class="header-search open">
+  <form action="/community/search" accept-charset="UTF-8" method="get"><input name="utf8" value="✓" type="hidden">
+    <span class="icon icon-search-thin"></span>
+    <input name="q" id="q" title="Search" placeholder="Search" autocomplete="off" spellcheck="false" class="header-search-input" data-algolia-application-id="6ZHEUVKJ88" data-algolia-api-key="c5470567eae7fa1177d43222e18ba086" type="text">
+    <button name="button" type="submit" class="icon-btn">submit</button>
+</form></div>
+
+<div class="search-results-dropdown dropdown" data-root-path="https://www.digitalocean.com/community">
+  <div class="container">
+    <div class="header-search-results-list"></div>
+
+    <div id="btn-wrap">
+      <a class="more-search-results" data-search-path="/community/search" href="https://www.digitalocean.com/community/search">
+        <span class="icon-mag"></span>
+        View All Results
+</a>    </div>
+  </div>
+</div>
+
+<script type="text/template" id="autocomplete-hits-template">
+  <div class="inner-search">
+    <ul>
+        {{#hits}}
+          <li>
+            <span class='icon icon-{{type}}'></span>
+            <a href='{{url}}'>{{{_highlightResult.title.value}}}</a>
+          </li>
+        {{/hits}}
+    </ul>
+  </div>
+</script>
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+
+  <div class="wrapper">
+    
+  </div>
+</header>
+
+
+      
+
+      <div class="wrapper layout-wrapper">
+
+        
+
+
+
+
+
+
+<div class="section-content section-content-growable content">
+
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+      
+      
+    </div>
+
+    <div class="right-section">
+      
+
+
+      <div class="section-item section-item-subscribe">
+  <span class="opt-in-switch off signed-out-subscribe">
+    <span class="subscribe-label">
+      <span class="icon icon-subscribe"></span>
+      <span class="subscription-label subscribe">Subscribe</span>
+      <span class="icon icon-subscribed"></span>
+      <span class="subscription-label subscribed">Subscribed</span>
+    </span>
+    <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+  </span>
+</div>
+
+<div class="section-item social-sharing-item">
+  <div class="sharing">
+  <a class="share-button" href="#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+        <div class="section-item table-of-contents-triggers"><div class="toc-trigger-mobile" data-toggle="modal" data-target="#contents-modal">
+  <a href="javascript:void(0);">
+    <span class="icon icon-contents"></span>
+    <span class="title">Contents</span>
+    <span class="icon icon-arrow-down"></span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+
+  <div class="container tutorial-header" data-completed-tutorial-id="" data-tutorial-id="1082" data-js="tutorial">
+
+      <div class="info-cta">
+    <a class="icon-close-light" href="javascript:void();"></a>
+    We hope you find this tutorial helpful. In addition to guides like 
+this one, we provide simple cloud infrastructure for developers. <a href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3">
+        Learn more →
+</a>  </div>
+
+
+    <button name="button" type="button" class="new-upvote-button" data-upvotable-id="1082" data-upvotable-type="Tutorial" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">10</span></button>
+
+    <h1 class="content-title ">
+ How To Install Glassfish 4.0 on Ubuntu 12.04.3
+    </h1>
+
+    <span class="meta-section timestamp"><span class="tutorial-date-text">Posted</span><span class="tutorial-date">March 17, 2014</span></span>
+
+    <span class="meta-section pageviews"><span class="icon icon-eye v-mid"></span><span class="views-count v-mid">86.3k</span><span class="sr-only"> views</span></span>
+
+    <span class="meta-section tags">
+      <a class="tag" href="https://www.digitalocean.com/community/tags/java?type=tutorials">Java</a>
+      <a class="tag" href="https://www.digitalocean.com/community/tags/ubuntu?type=tutorials">Ubuntu</a>
+    </span>
+  </div>
+
+  <div class="container">
+    
+  </div>
+
+    <div class="content-body tutorial-content tutorial-content-legacy" data-growable-markdown="">
+      <h3 id="pre-conditions">Pre-conditions</h3>
+
+<p>There are many tutorials available to help you install OpenJDK and 
+JBoss. This is one on the latest concerning Oracle Java and Glassfish. 
+Hopefully this will make deploying easier for Java EE developers.</p>
+
+<p>You will need a droplet with Ubuntu 12.04.3 x64 that has been created
+ with DigitalOcean. Login as root by ssh. This article assumes no Java 
+installed and at least 1G memory, as Java EE servers are quite 
+demanding.</p>
+
+<p><strong>What is Glassfish?</strong></p>
+
+<p>GlassFish is an open-source application server and the reference 
+implementation of Java EE. GlassFish 4.0 release supports the latest 
+Java Platform: Enterprise Edition 7. It supports Enterprise JavaBeans, 
+JPA, JavaServer Faces, JMS, RMI, JavaServer Pages, servlets, etc.</p>
+
+<div name="step-one-install-oracle-java-7" data-unique="step-one-install-oracle-java-7"></div><h2 id="step-one-install-oracle-java-7">Step One: Install Oracle Java 7</h2>
+
+<p>Start by updating the package index:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+</code></pre>
+<p>In order to get Oracle Installer of Java 7, we need to add a new apt 
+repository. In order to use add-apt-repository, you need to install 
+python-software-properties. Here's how to do it by apt-get:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install python-software-properties
+</code></pre>
+<p>Now you can add the new repository and install from Oracle Installer:</p>
+<pre class="code-pre "><code langs="">sudo add-apt-repository ppa:webupd8team/java
+</code></pre>
+<p>Make source list up-to-date:</p>
+<pre class="code-pre "><code langs="">sudo apt-get update
+</code></pre>
+<p>Install Java 7 by apt-get:</p>
+<pre class="code-pre "><code langs="">sudo apt-get install oracle-java7-installer
+</code></pre>
+<p>After installing, confirm the current Java is Oracle version:</p>
+<pre class="code-pre "><code langs="">java -version
+</code></pre>
+<p><strong>You will see this:</strong></p>
+<pre class="code-pre "><code langs="">java version "1.7.0_51"
+Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
+Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
+</code></pre>
+<div name="step-two-install-glassfish-40" data-unique="step-two-install-glassfish-40"></div><h2 id="step-two-install-glassfish-4-0">Step Two: Install Glassfish 4.0</h2>
+
+<p><strong>Get Glassfish Zip file</strong></p>
+<pre class="code-pre "><code langs="">wget download.java.net/glassfish/4.0/release/glassfish-4.0.zip
+</code></pre>
+<p>Install unzip first before unpackage to /opt</p>
+<pre class="code-pre "><code langs="">apt-get install unzip
+</code></pre>
+<p>Create the directory /opt and then unzip the package to /opt:</p>
+<pre class="code-pre "><code langs="">unzip glassfish-4.0.zip -d /opt
+</code></pre>
+<p>For convenience, add <code>export PATH=/opt/glassfish4/bin:$PATH</code> to the end of ~/.profile.</p>
+
+<p><strong>Start the glassfish server:</strong></p>
+<pre class="code-pre "><code langs="">asadmin start-domain
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Waiting for domain1 to start ...................
+Successfully started the domain : domain1
+domain  Location: /opt/glassfish4/glassfish/domains/domain1
+Log File: /opt/glassfish4/glassfish/domains/domain1/logs/server.log
+Admin Port: 4848
+Command start-domain executed successfully.
+</code></pre>
+<p>A domain is a set of one or more GlassFish Server instances managed 
+by one administration server. Default GlassFish Server’s port number: 
+8080. Default administration server’s port number: 4848. Administration 
+user name: admin; password: none.</p>
+
+<p>In order to visit admin page (your<em>server</em>id:4848) remotely, you need to enable secure admin:</p>
+<pre class="code-pre "><code langs="">asadmin enable-secure-admin
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Enter admin user name&gt;  admin
+Enter admin password for user "admin"&gt; 
+You must restart all running servers for the change in secure admin to take effect.
+Command enable-secure-admin executed successfully.
+</code></pre>
+<p>Restart domain to make effect of secure admin:</p>
+<pre class="code-pre "><code langs="">asadmin restart-domain
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Successfully restarted the domain
+Command restart-domain executed successfully.
+</code></pre>
+<p>Now you can visit admin page (your<em>server</em>id:4848) in browser</p>
+
+<p><strong>To stop the GlassFish server:</strong></p>
+<pre class="code-pre "><code langs="">asadmin stop-domain
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Waiting for the domain to stop .
+Command stop-domain executed successfully.
+</code></pre>
+<div name="demo-service-deploy-hellowar-on-glassfish" data-unique="demo-service-deploy-hellowar-on-glassfish"></div><h2 id="demo-service-deploy-hello-war-on-glassfish">Demo service: deploy hello.war on Glassfish</h2>
+
+<p>Download the sample application from Glassfish official samples:</p>
+<pre class="code-pre "><code langs="">wget https://glassfish.java.net/downloads/quickstart/hello.war
+</code></pre>
+<p>Deploy war file:</p>
+<pre class="code-pre "><code langs="">asadmin deploy /home/ee/glassfish/sample/hello.war
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Enter admin user name&gt;  admin
+Enter admin password for user "admin"&gt; 
+Application deployed with name hello.
+Command deploy executed successfully.
+</code></pre>
+<p>Now you can visit your<em>server</em>id:8080/hello</p>
+
+<p>To undeploy the application:</p>
+<pre class="code-pre "><code langs="">asadmin undeploy hello
+</code></pre>
+<p><strong>You will see:</strong></p>
+<pre class="code-pre "><code langs="">Enter admin user name&gt;  admin
+Enter admin password for user "admin"&gt; 
+Command undeploy executed successfully.
+</code></pre>
+<p>In order to save typing "admin user name" and "password" every time 
+you deploy or undeploy an application, create a password file pwdfile 
+with content:</p>
+<pre class="code-pre "><code langs="">AS_ADMIN_PASSWORD=your_admin_password
+</code></pre>
+<p>Add --passwordfile in command:</p>
+<pre class="code-pre "><code langs="">asadmin --passwordfile pwdfile deploy /home/ee/glassfish/sample/hello.war
+</code></pre>
+<p>Now the prompt for user name/password won't appear.</p>
+
+<div class="author">Submitted by: <a href="http://www.fromwheretowhere.net/"> Xuan Wu</a></div>
+
+    </div>
+</div>
+
+<div class="tutorial-footer">
+  <div class="tutorial-footer-details">
+
+  <div class="postable-info-bar-container">
+  <div class="postable-info-bar">
+    <div class="left-section">
+      
+    </div>
+    <div class="right-section">
+      <div class="upvote-container">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="1082" data-upvotable-type="Tutorial" data-include-caret="false"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-heart"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-heart"></use></svg></span><span class="new-upvote-text">Upvote</span><span class="new-upvote-count">10</span></button>
+      </div>
+      <div class="section-item section-item-subscribe">
+  <span class="opt-in-switch off signed-out-subscribe">
+    <span class="subscribe-label">
+      <span class="icon icon-subscribe"></span>
+      <span class="subscription-label subscribe">Subscribe</span>
+      <span class="icon icon-subscribed"></span>
+      <span class="subscription-label subscribed">Subscribed</span>
+    </span>
+    <a data-toggle="modal" data-target="#sign-in-modal" class="mini-switch-container" href="javascript:void(0);"><div class="mini-switch off signed-out-subscribe"><div class="switch-handle"></div></div></a>
+  </span>
+</div>
+
+<div class="section-item social-sharing-item">
+  <div class="sharing">
+  <a class="share-button" href="#" data-toggle="modal" data-target="#share-modal">
+    <span class="icon icon-share-square"></span>
+    <span class="share-button-text">Share</span>
+  </a>
+</div>
+
+</div>
+
+    </div>
+  </div>
+</div>
+
+
+  <div class="section-content tutorial-contributors zero">
+
+
+  </div>
+</div>
+
+
+  
+    <div class="tutorial-ctas">
+  <div class="section-content">
+    <div class="cta-description">
+      <h2>Spin up an SSD cloud server in under a minute.</h2>
+
+      <p>Simple setup. Full root access. Straightforward pricing.</p>
+
+      <a class="cloud-tutorial-cta" href="https://www.digitalocean.com/?utm_medium=community&amp;utm_source=community_gencta&amp;utm_campaign=needaserver&amp;utm_content=how-to-install-glassfish-4-0-on-ubuntu-12-04-3">Deploy Server</a>
+    </div>
+  </div>
+</div>
+    <div class="related-tutorials">
+    <div class="section-content">
+      <h2>Related Tutorials</h2>
+
+      <ul>
+        <li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-encrypt-tomcat-8-connections-with-apache-or-nginx-on-ubuntu-16-04">How To Encrypt Tomcat 8 Connections with Apache or Nginx on Ubuntu 16.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-tomcat-8-on-ubuntu-16-04">How To Install Apache Tomcat 8 on Ubuntu 16.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-java-with-apt-get-on-ubuntu-16-04">How To Install Java with Apt-Get on Ubuntu 16.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-optimize-your-tomcat-installation-on-ubuntu-14-04">How To Optimize Your Tomcat Installation on Ubuntu 14.04</a></li>
+<li><a class="related-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-apache-kafka-on-ubuntu-14-04">How To Install Apache Kafka on Ubuntu 14.04</a></li>
+
+      </ul>
+    </div>
+  </div>
+
+</div>
+
+<div class="content-comments">
+  <div class="section-content">
+    <div class="tutorial commentable" id="tutorial_1082">
+
+  <div class="comments-header">
+    <h4 class="comments-count"><span>10 Comments</span></h4>
+  </div>
+
+  <div class="response response-form no-avatar">
+  <div class="js-display-on-error flash error hidden"></div>
+
+
+  <form class="content-form disabled-form" id="new_comment" action="/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3/comments" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" value="✓" disabled="disabled" type="hidden">
+
+    <div class="meltdown_wrap" style="height: auto;"><div class="meltdown_topmargin"></div><div class="meltdown_bar"><ul class="meltdown_controls meltdown_controls_preview"><li class="meltdown_control-preview meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Toggle Preview"><span>Preview</span></li></ul><div class="preview-header">Markdown Preview</div><ul class="meltdown_controls meltdown_controls_main"><li class="meltdown_control-bold meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Bold"><span unselectable="on">B</span></li><li class="meltdown_control-italics meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Italics"><span unselectable="on">I</span></li><li class="meltdown_control-h1 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 1"><span unselectable="on">H1</span></li><li class="meltdown_control-h2 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 2"><span unselectable="on">H2</span></li><li class="meltdown_control-h3 meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Header 3"><span unselectable="on">H3</span></li><li class="meltdown_control-ul meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Unordered List"><span unselectable="on">UL</span></li><li class="meltdown_control-ol meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Ordered List"><span unselectable="on">OL</span></li><li class="meltdown_control-link meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Link"><span unselectable="on">Link</span></li><li class="meltdown_control-code meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Code"><span unselectable="on">Code</span></li><li class="meltdown_control-highlight meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Highlight"><span unselectable="on">Highlight</span></li><li class="meltdown_control-table meltdown_control meltdown_controlbutton disabled" title="" data-original-title="Table"><span unselectable="on">Table</span></li></ul></div><div class="meltdown_editor-wrap"><div class="meltdown_editor-deco"><textarea name="comment[content]" id="comment_content" placeholder="Leave a comment..." class="js-comment-content tutorial-comment-field meltdown_editor" data-markdown="true" disabled="disabled" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 120px;"></textarea></div></div><div class="meltdown_preview-wrap"><div class="meltdown_preview-wrap2"><div class="meltdown_preview-error-message">Could not load preview. <a href="#">Try again</a></div><div class="meltdown_preview-loading-message">Loading preview...</div><div class="meltdown_preview content-body"></div></div></div><div class="meltdown_bottommargin"></div></div>
+
+      <div class="log-in-notice "><a href="https://www.digitalocean.com/community/auth/digitalocean">Log In to Comment</a></div>
+
+    <div class="clearfix"></div>
+</form>
+</div>
+
+
+  <div class="comments">
+    <ul class="response-list">
+          <a class="hidden" rel="nofollow" data-remote="true" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3/comments">Load</a>
+    <li id="comment_11060" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="11060" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/enava">enava</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=11060">March 21, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class="legacy">Hello, nice post... 
+
+Nevertheless, when trying to start the glassfish server for the first time, it says the admin port (4848) is already in use, more specifically:
+"There is a process already using the admin port 4848 -- it probably is another instance of a GlassFish server. Command start-domain failed."
+
+Any hints about this?... 
+
+netstat -a doesn't show any process running on that port. The droplet is running with 1GB RAM, and Linux Ubuntu 13.10 x64 </div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_11060">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_11060"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_11066" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="11066" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/maxpolk">maxpolk</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=11066">March 22, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class="legacy">As root try netstat -tlnp and that will show you which process is taking up that listening port.</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_11066">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_11066"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_11067" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="11067" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/enava">enava</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=11067">March 22, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class="legacy">All it shows is sshd (port 22), postgres (port 5432) and apache2 (port 80)... checked iptables rules (not that i have set any) and it is empty. Even added a rule to specifically open the admin port (4848) and it keeps saying it is already in use. Tried moving to port 4849, and it says it is already used also :-/ ... Tried starting glassfish as regular user and root, no luck. This is disappointing, I'm about to downgrade to ubuntu 12 to see if this solves the problem. Should I try to install another program (not from repository) that uses any other non-privilegied port (&gt;1024)??</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_11067">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_11067"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_11068" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="11068" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/enava">enava</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=11068">March 22, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class="legacy">Problem solved. My hostname wasn't resolving to an IP, since it wasn't specified in /etc/hosts ... Thanks for your attention =)</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_11068">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_11068"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_12725" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="12725" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/kamilski">kamilski</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=12725">May  2, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class="legacy">if you are searching for a startup script for Glassfish 4,
+you can find one here:
+
+http://kamwo.me/2013/08/installing-glassfish-4-on-ubuntu-lts/</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_12725">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_12725"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_19112" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="19112" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/sanrodari">sanrodari</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=19112">September 23, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>Thanks a lot!</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_19112">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_19112"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_21748" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="21748" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/yazsoft">yazsoft</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=21748">October 31, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>How much ram is it using ? If we use 1gb ram, how much will be free?</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_21748">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_21748"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_22109" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="22109" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/fredshaw">fredshaw</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=22109">November  6, 2014</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>This is good.<br>
+But i failed to setup glassfish for my centos server following this tutorial although i changed the commands appropriately. <br>
+Luckily i stumbled on this fine <a href="https://www.rosehosting.com/blog/install-glassfish-on-a-centos-6-vps/" rel="nofollow">article</a> and did just fine.</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_22109">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_22109"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_36901" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="36901" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/slerman">slerman</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=36901">August 28, 2015</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>Thanks for the great article! I ran 
+glassfish and deployed a servlet and everything seemed to work, but now 
+for the second night in a row, when I woke up, my domain was no longer 
+running and I had to manually tell it to run again. Can anyone tell me 
+why this is happening and what I have to do? I am using Ubuntu with the 
+LAMP stack.</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_36901">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_36901"></div>
+</div>
+    </div>
+
+  </li>
+
+      <li id="comment_43274" data-level="0" class="comment-container" style="">
+    <div class="response comment-body-container    " data-highlight="">
+      <div class="comment-upvote-container ">
+        <button name="button" type="button" class="new-upvote-button" data-upvotable-id="43274" data-upvotable-type="Comment" data-include-caret="true"><span class="icon new-upvote-icon"><svg class="svg-icon svg-icon-upvote-empty"><use xlink:href="https://www.digitalocean.com/assets/community/icon-sprite-b3bd8da79ac14a67be71d7b2c79d2297.svg#icon-upvote-empty"></use></svg></span><span class="new-upvote-count">0</span></button>
+      </div>
+      <div class="ox-auto">
+        <div class="comment-header">
+          <span class="response-name"><a class="username" href="https://www.digitalocean.com/community/users/brunojprangel">brunojprangel</a></span>
+          
+          <span class="response-time"><a rel="nofollow" class="post-time-link" href="https://www.digitalocean.com/community/tutorials/how-to-install-glassfish-4-0-on-ubuntu-12-04-3?comment=43274">February  8, 2016</a></span>
+
+          
+        </div>
+
+          <div class="response-body content-body">
+            <div class=""><p>I have a question but so far no one can 
+help me, I went up a website on Digital Ocean but it is not being 
+responsive, localmento on my computer it works in all sizes everything 
+right but when I climb it in the DO is not responsive is what you get 
+help me?</p>
+</div>
+            
+          </div>
+
+        
+
+        <div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+
+
+        <div class="content-actions">
+  <div class="comment-actions">
+
+    
+
+    
+  </div>
+
+  <div class="comment-moderation-actions">
+    <ul class="comment-moderation-actions-list ">
+      
+
+
+
+
+
+
+
+    </ul>
+  </div>
+</div>
+
+      </div>
+      <div class="clear"></div>
+    </div>
+    <div class="response-comments">
+      <div class="response_comment commentable comment" id="response_comment_43274">
+
+
+  <div class="comments">
+    <ul class="response-list">
+      
+
+
+
+    </ul>
+  </div>
+
+
+  <div id="reply_anchor_comment_43274"></div>
+</div>
+    </div>
+
+  </li></ul>
+
+      <div class="comments-spinner" style="display: none;"><div class="spinner spinner-large">
+  <div class="bounce1"></div>
+  <div class="bounce2"></div>
+  <div class="bounce3"></div>
+  
+</div>
+</div>
+  </div>
+
+  <div class="load-more-container"></div>
+</div>
+
+
+  </div>
+</div>
+
+<div class="creative-commons">
+  <a class="creative-commons-image" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"><img rel="license" alt="Creative Commons License" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/creativecommons-08b32a9279fcd47fcd78ac6a26331389.png"></a>
+    <div class="license-text">This work is licensed under a <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License</a>.</div>
+</div>
+
+
+
+
+
+        <div class="clearfix"></div>
+      </div>
+
+      <footer class="Footer">
+  <span class="Footer-logo icon-sammy"></span>
+
+  <div>Copyright © 2016 DigitalOcean™ Inc.</div>
+
+  <ul class="Footer-nav">
+    <li><a href="https://www.digitalocean.com/community">Community</a></li>
+    <li><a href="https://www.digitalocean.com/community/tutorials">Tutorials</a></li>
+    <li><a href="https://www.digitalocean.com/community/questions">Questions</a></li>
+    <li><a href="https://www.digitalocean.com/community/projects">Projects</a></li>
+    <li><a href="https://www.digitalocean.com/community/tags">Tags</a></li>
+    <li><a href="https://www.digitalocean.com/community/newsletter">Newsletter</a></li>
+    <li>
+      <a href="https://www.digitalocean.com/community/tutorials/feed">
+        RSS <span class="icon-rss"></span>
+</a>    </li>
+  </ul>
+
+  <br>
+
+  <ul class="Footer-nav Footer-nav--secondary">
+    <li><a href="https://www.digitalocean.com/features/one-click-apps/">Distros &amp; One-Click Apps</a></li>
+    <li><a href="https://www.digitalocean.com/legal/terms/">Terms, Privacy, &amp; Copyright</a></li>
+    <li><a href="https://www.digitalocean.com/security/">Security</a></li>
+      <li><a data-toggle="modal" data-target="#sign-in-modal" href="#">Report a Bug</a></li>
+    <li><a href="https://www.digitalocean.com/community/get-paid-to-write">Get Paid to Write</a></li>
+  </ul>
+</footer>
+
+
+
+
+
+      <div id="sign-in-modal" class="modal fade mini-modal" style="display: none;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1>Almost there!</h1>
+        <a class="close-button" data-dismiss="modal" aria-label="close" href=""><span class="icon icon-close-light"></span></a>
+      </div>
+      <div class="modal-body">
+        <div class="sign-in-message">Sign into your account, or create a new one, to start interacting.</div>
+
+        <div class="sign-in-modal-actions">
+          <a class="sign-in-link button blue-button" data-default-url="/community/auth/digitalocean" href="https://www.digitalocean.com/community/auth/digitalocean">Log In</a>
+          <a class="sign-up-link button green-button" data-default-url="/community/auth/digitalocean?display=sessionless+register" href="https://www.digitalocean.com/community/auth/digitalocean?display=sessionless+register">Sign Up</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+    
+  <script>
+    $(function() {
+      if (!!window.init_sharing) {
+        window.init_sharing();
+      }
+      new window.NewsletterSignup();
+      new window.GrowableMarkdown({ target: '[data-growable-markdown]' });
+
+      window.Bugsnag.beforeNotify = function(payload, metaData) {
+        // custom logic to determine groupingHash
+        metaData.groupingHash = "tutorialShow";
+      }
+    });
+  </script>
+
+  <div id="report-a-bug-modal" class="modal fade mini-modal" style="display: none;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1>Report a Bug</h1>
+          <a class="close-button" data-dismiss="modal" aria-label="close" href=""><span class="icon icon-close-light"></span></a>
+        </div>
+        <div class="modal-body">
+          <div class="report-a-bug-message text-center">Use this form to report bugs related to the Community</div>
+          <div class="report-a-bug-actions do-form">
+            <div class="form-wrap">
+              <form class="new_bug_report" id="new_bug_report" action="/community/bug_reports" accept-charset="UTF-8" method="post"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Vt35Nh4dKytvvs5+8jM85CnUvJfdH6Sml3e5TrtPq4AZwHILWKeLfThaJTPUXLVbRzi4sy3cHOdwxP0w2Xar5w==" type="hidden">
+                <fieldset name="report-a-bug-info">
+                <legend class="sr-only">Report a bug:</legend>
+                  <div class="field">
+                    <label for="bug_reporter_name" class="sr-only">Name</label>
+                    <input placeholder="Name" id="bug_reporter_name" name="bug_report[name]" type="text">
+                  </div>
+                  <div class="field">
+                    <label for="bug_reporter_email" class="sr-only">Email</label>
+                    <input name="Email" placeholder="Email" id="bug_reporter_email" required="required" type="text">
+                  </div>
+                  <div class="field">
+                    <label for="bug_reporter_message" class="sr-only">Message</label>
+                    <textarea name="Message" placeholder="Message" id="bug_reporter_message" required="required" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 125px;"></textarea>
+                  </div>
+
+                  <div class="field actions">
+                    <input name="commit" value="Submit" class="button" type="submit">
+                  </div>
+                </fieldset>
+</form>            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+    
+  
+
+<textarea tabindex="-1" aria-hidden="true" ,="" style="position: absolute; top: -999px; left: 0px; right: auto; bottom: auto; border: 0px none; padding: 0px; box-sizing: content-box; overflow-wrap: break-word; height: 0px ! important; min-height: 0px ! important; overflow: hidden; transition: none 0s ease 0s ; font-family: &quot;proxima-nova&quot;,sans-serif; font-size: 17px; font-weight: 400; font-style: normal; letter-spacing: 0px; text-transform: none; word-spacing: 0px; text-indent: 0px; line-height: 23.8px; width: 58px;" class="autosizejs" id="autosizejs">Message
+</textarea><a id="scrollUp" href="#top" style="position: fixed; z-index: 2147483647;">Scroll to top</a><div id="scrollUp-active" style="position: absolute; top: 300px; width: 100%; border-top: 1px dotted rgb(0, 255, 255); z-index: 2147483647;"></div><script type="text/javascript" id="">(function(){function b(){!1===c&&window.Munchkin&&(c=!0,window.Munchkin.init("937-EID-756",{disableClickDelay:!0,asyncOnly:!0}))}var c=!1,a=document.createElement("script");a.type="text/javascript";a.async=!0;a.src="//munchkin.marketo.net/munchkin.js";a.onreadystatechange=function(){"complete"!=this.readyState&&"loaded"!=this.readyState||b()};a.onload=b;document.getElementsByTagName("head")[0].appendChild(a)})();</script><script type="text/javascript" id="">var $nlModal=document.getElementById("newsletter-signup-dialog"),$relTutorials=document.querySelector(".tutorial-footer \x3e .related-tutorials"),$w=window.innerWidth||document.body.clientWidth;$nlModal&&$relTutorials&&1440>$w&&($nlModal.setAttribute("style","position:relative; width:auto; max-width:750px; margin-left:auto; margin-right:auto;"),$relTutorials.insertBefore($nlModal,$relTutorials.firstChild));</script><img style="display:none" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/tr.gif" width="1" height="1"><div id="fb-root" class=" fb_reset"><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div><iframe name="fb_xdm_frame_https" allowtransparency="true" allowfullscreen="true" scrolling="no" id="fb_xdm_frame_https" aria-hidden="true" title="Facebook Cross Domain Communication Frame" tabindex="-1" style="border: medium none;" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/fTmIQU3LxvB.html" frameborder="0"></iframe></div></div><div style="position: absolute; top: -10000px; height: 0px; width: 0px;"><div></div></div></div><img style="display:none;" alt="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/adsct_002.gif" width="1" height="1">
+<img style="display:none;" alt="" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/adsct.gif" width="1" height="1"><iframe style="display: none;" src="How%20To%20Install%20Glassfish%204.0%20on%20Ubuntu%2012.04.3%20%7C%20DigitalOcean_files/pixel.html"></iframe><iframe id="rufous-sandbox" scrolling="no" allowtransparency="true" allowfullscreen="true" style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: medium none;" title="Twitter analytics iframe" frameborder="0"></iframe></body></html>
